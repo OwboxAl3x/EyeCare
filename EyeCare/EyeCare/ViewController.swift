@@ -15,9 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblStart: UIButton!
     @IBOutlet weak var lblTask: UILabel!
     
-    var task:EditController = EditController()
-    
-    var selectedTaskRecibido:String?
+    var task:String = "Programing"
     
     var hours:Int = 2
     var minutes:Int = 0
@@ -84,19 +82,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        print("Entrando en el viewDidLoad de ViewControler con task: \(task)")
+        
         self.imgActivity.layer.cornerRadius = self.imgActivity.bounds.size.width / 2
         self.imgActivity.layer.borderWidth = 4
         self.imgActivity.layer.borderColor = UIColor.white.cgColor
         
-        if selectedTaskRecibido != nil {
-            
-            lblTask.text = selectedTaskRecibido!
-            
-        } else {
-            
-            lblTask.text = "Programming"
-            
-        }
+        lblTask.text = task
         
         timeRemaining = (hours*3600) + (minutes*60) + seconds
         

@@ -12,8 +12,7 @@
 		920A1C7720572B33001C627A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 920A1C7520572B33001C627A /* Main.storyboard */; };
 		920A1C7920572B33001C627A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 920A1C7820572B33001C627A /* Assets.xcassets */; };
 		920A1C7C20572B33001C627A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 920A1C7A20572B33001C627A /* LaunchScreen.storyboard */; };
-		92ED6B112057BDB700083D16 /* botonVerde.png in Resources */ = {isa = PBXBuildFile; fileRef = 92ED6B102057BDB700083D16 /* botonVerde.png */; };
-		92ED6B132057BDC100083D16 /* botonRojo.png in Resources */ = {isa = PBXBuildFile; fileRef = 92ED6B122057BDC000083D16 /* botonRojo.png */; };
+		92D97F662073E50400E714B7 /* imgReading.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 92D97F652073E50400E714B7 /* imgReading.jpeg */; };
 		92ED6B1B2057ED9B00083D16 /* imgEjemplo1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 92ED6B1A2057ED9B00083D16 /* imgEjemplo1.jpeg */; };
 		92ED6B1D205829BF00083D16 /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ED6B1C205829BF00083D16 /* EditController.swift */; };
 /* End PBXBuildFile section */
@@ -26,8 +25,7 @@
 		920A1C7820572B33001C627A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		920A1C7B20572B33001C627A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		920A1C7D20572B33001C627A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		92ED6B102057BDB700083D16 /* botonVerde.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = botonVerde.png; sourceTree = "<group>"; };
-		92ED6B122057BDC000083D16 /* botonRojo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = botonRojo.png; sourceTree = "<group>"; };
+		92D97F652073E50400E714B7 /* imgReading.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = imgReading.jpeg; sourceTree = "<group>"; };
 		92ED6B1A2057ED9B00083D16 /* imgEjemplo1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = imgEjemplo1.jpeg; sourceTree = "<group>"; };
 		92ED6B1C205829BF00083D16 /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,9 +75,8 @@
 		92ED6B0D2057BA3800083D16 /* imgs */ = {
 			isa = PBXGroup;
 			children = (
-				92ED6B102057BDB700083D16 /* botonVerde.png */,
-				92ED6B122057BDC000083D16 /* botonRojo.png */,
 				92ED6B1A2057ED9B00083D16 /* imgEjemplo1.jpeg */,
+				92D97F652073E50400E714B7 /* imgReading.jpeg */,
 			);
 			path = imgs;
 			sourceTree = "<group>";
@@ -111,7 +108,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Alejandro Garcia Vallecillo";
 				TargetAttributes = {
 					920A1C6D20572B32001C627A = {
@@ -143,9 +140,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92ED6B112057BDB700083D16 /* botonVerde.png in Resources */,
-				92ED6B132057BDC100083D16 /* botonRojo.png in Resources */,
 				92ED6B1B2057ED9B00083D16 /* imgEjemplo1.jpeg in Resources */,
+				92D97F662073E50400E714B7 /* imgReading.jpeg in Resources */,
 				920A1C7C20572B33001C627A /* LaunchScreen.storyboard in Resources */,
 				920A1C7920572B33001C627A /* Assets.xcassets in Resources */,
 				920A1C7720572B33001C627A /* Main.storyboard in Resources */,
@@ -201,6 +197,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -208,6 +205,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -258,6 +256,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -265,6 +264,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

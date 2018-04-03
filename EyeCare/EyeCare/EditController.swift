@@ -12,9 +12,9 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     @IBOutlet weak var pickerTasks: UIPickerView!
     
-    var tasks = ["Programming", "Reading", "Studing"]
+    var tasks = ["Programing", "Reading", "Studing"]
     
-    var selectedTask:String = "Programming"
+    var selectedTask:String = "Programing"
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
@@ -38,6 +38,32 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         self.selectedTask = tasks[row]
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let destino = segue.destination as? ViewController{
+            
+            destino.task = selectedTask
+            
+            if selectedTask == "Programing" {
+                
+                destino.hours = 2
+                
+            } else if selectedTask == "Reading" {
+                
+                destino.hours = 2
+                destino.minutes = 30
+                
+            }else if selectedTask == "Studing" {
+                
+                destino.hours = 1
+                destino.minutes = 30
+                
+            }
+            
+        }
+    
     }
     
     override func viewDidLoad() {
