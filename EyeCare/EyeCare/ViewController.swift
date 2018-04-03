@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblTask: UILabel!
     
     var task:String = "Programing"
+    var imgTask:String = "imgPrograming.jpeg"
     
     var hours:Int = 2
     var minutes:Int = 0
@@ -84,6 +85,7 @@ class ViewController: UIViewController {
         
         print("Entrando en el viewDidLoad de ViewControler con task: \(task)")
         
+        self.imgActivity.image = UIImage(named: imgTask)
         self.imgActivity.layer.cornerRadius = self.imgActivity.bounds.size.width / 2
         self.imgActivity.layer.borderWidth = 4
         self.imgActivity.layer.borderColor = UIColor.white.cgColor
