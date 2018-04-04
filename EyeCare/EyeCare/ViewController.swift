@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import UserNotifications
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     @IBOutlet weak var imgActivity: UIImageView!
     @IBOutlet weak var lblCount: UILabel!
@@ -36,6 +37,23 @@ class ViewController: UIViewController {
             isTimerRun = true
             runTimer()
             lblStart.setTitle("Stop", for: .normal)
+            
+            // Creamos el trigger de la notificación de aviso
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeRemaining), repeats: false)
+            // Creamos el contenido de la notificación de aviso
+            let contentTrigger = UNMutableNotificationContent()
+            contentTrigger.title = "It's time to rest"
+            contentTrigger.body = "Stop \(task) and rest"
+            contentTrigger.sound = UNNotificationSound.default()
+            // Creamos el objeto request
+            let request = UNNotificationRequest(identifier: "outOfTime", content: contentTrigger, trigger: trigger)
+            // Añadimos la request al centro de notificaciones
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UNUserNotificationCenter.current().add(request) { (error) in
+                if let error = error{
+                    print("Se ha producido un error: \(error)")
+                }
+            }
             
         }else {
             
@@ -83,7 +101,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        print("Entrando en el viewDidLoad de ViewControler con task: \(task)")
+        UNUserNotificationCenter.current().delegate = self
         
         self.imgActivity.image = UIImage(named: imgTask)
         self.imgActivity.layer.cornerRadius = self.imgActivity.bounds.size.width / 2
@@ -96,6 +114,10 @@ class ViewController: UIViewController {
         
         lblCount.text = timeString()
         
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
     }
 
 }
