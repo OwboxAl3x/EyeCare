@@ -38,22 +38,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             runTimer()
             lblStart.setTitle("Stop", for: .normal)
             
-            // Creamos el trigger de la notificación de aviso
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeRemaining), repeats: false)
-            // Creamos el contenido de la notificación de aviso
-            let contentTrigger = UNMutableNotificationContent()
-            contentTrigger.title = "It's time to rest"
-            contentTrigger.body = "Stop \(task) and rest"
-            contentTrigger.sound = UNNotificationSound.default()
-            // Creamos el objeto request
-            let request = UNNotificationRequest(identifier: "outOfTime", content: contentTrigger, trigger: trigger)
-            // Añadimos la request al centro de notificaciones
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            UNUserNotificationCenter.current().add(request) { (error) in
-                if let error = error{
-                    print("Se ha producido un error: \(error)")
-                }
-            }
+            crearNotificacion()
             
         }else {
             
@@ -113,6 +98,27 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         timeRemaining = (hours*3600) + (minutes*60) + seconds
         
         lblCount.text = timeString()
+        
+    }
+    
+    func crearNotificacion(){
+        
+        // Creamos el trigger de la notificación de aviso
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeRemaining), repeats: false)
+        // Creamos el contenido de la notificación de aviso
+        let contentTrigger = UNMutableNotificationContent()
+        contentTrigger.title = "It's time to rest"
+        contentTrigger.body = "Stop \(task) and rest"
+        contentTrigger.sound = UNNotificationSound.default()
+        // Creamos el objeto request
+        let request = UNNotificationRequest(identifier: "outOfTime", content: contentTrigger, trigger: trigger)
+        // Añadimos la request al centro de notificaciones
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error{
+                print("Se ha producido un error: \(error)")
+            }
+        }
         
     }
     

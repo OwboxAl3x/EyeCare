@@ -66,7 +66,7 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             }else if selectedTask == "Test" {
                 
                 destino.hours = 0
-                destino.minutes = 5
+                destino.minutes = 1
                 destino.imgTask = "imgStudying.jpeg"
                 
             }
