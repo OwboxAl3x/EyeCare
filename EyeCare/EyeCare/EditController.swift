@@ -12,7 +12,7 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     @IBOutlet weak var pickerTasks: UIPickerView!
     
-    var tasks = ["Programing", "Reading", "Studing", "Test"]
+    var tasks = ["Programming", "Reading", "Studing", "Playing Games", "Test"]
     
     var selectedTask:String = "Programing"
     
@@ -46,27 +46,39 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             
             destino.task = selectedTask
             
-            if selectedTask == "Programing" {
+            if selectedTask == "Programming" {
                 
-                destino.hours = 2
+                destino.hours = 1
+                destino.minutes = 0
+                destino.seconds = 0
                 destino.imgTask = "imgPrograming.jpeg"
                 
             } else if selectedTask == "Reading" {
                 
-                destino.hours = 2
+                destino.hours = 1
                 destino.minutes = 30
+                destino.seconds = 0
                 destino.imgTask = "imgReading.jpeg"
                 
             }else if selectedTask == "Studing" {
                 
                 destino.hours = 1
+                destino.minutes = 0
+                destino.seconds = 0
+                destino.imgTask = "imgStudying.jpeg"
+                
+            }else if selectedTask == "Playing Games" {
+                
+                destino.hours = 1
                 destino.minutes = 30
+                destino.seconds = 0
                 destino.imgTask = "imgStudying.jpeg"
                 
             }else if selectedTask == "Test" {
                 
                 destino.hours = 0
-                destino.minutes = 1
+                destino.minutes = 0
+                destino.seconds = 20
                 destino.imgTask = "imgStudying.jpeg"
                 
             }

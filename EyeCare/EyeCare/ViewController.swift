@@ -16,10 +16,10 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     @IBOutlet weak var lblStart: UIButton!
     @IBOutlet weak var lblTask: UILabel!
     
-    var task:String = "Programing"
+    // Datos de inicio
+    var task:String = "Programming"
     var imgTask:String = "imgPrograming.jpeg"
-    
-    var hours:Int = 2
+    var hours:Int = 1
     var minutes:Int = 0
     var seconds:Int = 0
     
@@ -45,7 +45,10 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             isTimerRun = false
             timer.invalidate()
             lblStart.setTitle("Start", for: .normal)
+            lblCount.font = UIFont(name: lblCount.font.fontName, size: 53)
             lblCount.text = timeString()
+            
+            eliminarNotificacion()
             
         }
         
@@ -62,6 +65,9 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         if timeRemaining < 1 {
             
             timer.invalidate()
+            lblCount.text = "Let's take a break!"
+            lblCount.font = UIFont(name: lblCount.font.fontName, size: 40)
+            lblStart.setTitle("Continue", for: .normal)
 
         } else {
             
@@ -107,7 +113,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeRemaining), repeats: false)
         // Creamos el contenido de la notificación de aviso
         let contentTrigger = UNMutableNotificationContent()
-        contentTrigger.title = "It's time to rest"
+        contentTrigger.title = "Let's take a break"
         contentTrigger.body = "Stop \(task) and rest"
         contentTrigger.sound = UNNotificationSound.default()
         // Creamos el objeto request
@@ -119,6 +125,13 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
                 print("Se ha producido un error: \(error)")
             }
         }
+        
+    }
+    
+    func eliminarNotificacion(){
+        
+        // Eliminamos todas las notificaciones
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
     }
     
