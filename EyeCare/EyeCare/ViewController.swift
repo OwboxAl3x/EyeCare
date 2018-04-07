@@ -23,11 +23,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     var minutes:Int = 0
     var seconds:Int = 0
     
-    // Datos para Background
-    var diffHours = 0
-    var diffMinutes = 0
-    var diffSeconds = 0
-    
     var timeRemaining:Int = 0
     
     var timer = Timer()
@@ -50,7 +45,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             isTimerRun = false
             timer.invalidate()
             lblStart.setTitle("Start", for: .normal)
-            
             lblCount.font = UIFont(name: lblCount.font.fontName, size: 53)
             lblCount.text = timeString()
             
@@ -98,9 +92,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        NotificationCenter.default.addObserver(self, selector: #selector(pauseWhenBackground(noti:)), name: .UIApplicationDidEnterBackground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(resumeWhenForeground(noti:)), name: .UIApplicationWillEnterForeground, object: nil)
-        
         UNUserNotificationCenter.current().delegate = self
         
         self.imgActivity.image = UIImage(named: imgTask)
@@ -113,44 +104,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         timeRemaining = (hours*3600) + (minutes*60) + seconds
         
         lblCount.text = timeString()
-        
-    }
-    
-    @objc func pauseWhenBackground(noti: Notification) {
-        
-        self.timer.invalidate()
-        let shared = UserDefaults.standard
-        shared.set(Date(), forKey: "savedTime")
-        print(Date())
-        
-    }
-    
-    @objc func resumeWhenForeground(noti: Notification) {
-        
-        if let savedDate = UserDefaults.standard.object(forKey: "savedTime") as? Date {
-         
-            (diffHours, diffMinutes, diffSeconds) = ViewController.getTimeDiff(startDate: savedDate)
-            print("Horas: \(diffHours), Mins: \(diffMinutes), Segs: \(diffSeconds)")
-            self.refresh(hrs: diffHours, mins: diffMinutes, secs: diffSeconds)
-            
-        }
-        
-    }
-    
-    static func getTimeDiff(startDate: Date) -> (Int, Int, Int) {
-        
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.hour, .minute, .second], from: startDate, to: Date())
-        
-        return (components.hour!, components.minute!, components.second!)
-        
-    }
-    
-    func refresh (hrs: Int, mins: Int, secs: Int) {
-        
-        self.timeRemaining -= ((hrs/3600) + (mins/60%60) + (secs%60) + 1)
-        self.lblCount.text = self.timeString()
-        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
         
     }
     
