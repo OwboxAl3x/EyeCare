@@ -10,7 +10,7 @@ import UIKit
 
 class HelpController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var ayudas = ["Tips", "FAQs"]
+    var ayudas = [NSLocalizedString("TIPS", comment: "Consejos"), "FAQs"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

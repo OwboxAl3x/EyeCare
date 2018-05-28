@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  EyeCare
+
+  Created by Alejandro Garcia Vallecillo on 28/5/18.
+  Copyright © 2018 Alejandro Garcia Vallecillo. All rights reserved.
+*/
+
+TIPS = "Tips";
+
+CONSEJO1 = "1. Try not to sit too close to the screen or, in the case of reading or studying, keep the text at a distance so as not to force excessive vision.";
+
+CONSEJO2 = "2. It is important to maintain good lighting in the environment where the task is performed.";
+
+CONSEJO3 = "3. Maintaining a good posture also helps to avoid visual fatigue.";
+
+FAQS1 = "1. Why do my eyes sting?\n\nThe visual exhaustion produced by an excess of acommodation in near vision can cause symptoms of itching or stinging.";
+
+FAQS2 = "2. When I'm two hours in front of the computer, my eyes get red.\n\nThe redness of the eyes may be associated with other symptoms such as itching and caused by rubbing the eyes with the hands.";
+
+NOTITITLE = "Let's take a break";
+
+NOTIBODY = "Stop and rest";
+
+BOTONSTART = "Start";
+
+BOTONSTOP = "Stop";
+
+BOTONCONTINUE = "Continue";
+
+DEFAULTTASK = "Programming";

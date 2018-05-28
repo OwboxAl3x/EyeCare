@@ -17,7 +17,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     @IBOutlet weak var lblTask: UILabel!
     
     // Datos de inicio
-    var task:String = "Programming"
+    var task:String = NSLocalizedString("DEFAULTTASK", comment: "TaskDefault")
     var imgTask:String = "imgPrograming.jpeg"
     var hours:Int = 1
     var minutes:Int = 0
@@ -41,7 +41,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             
             isTimerRun = true
             runTimer()
-            lblStart.setTitle("Stop", for: .normal)
+            lblStart.setTitle(NSLocalizedString("BOTONSTOP", comment: "BotonStop"), for: .normal)
             
             crearNotificacion()
             
@@ -49,7 +49,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             
             isTimerRun = false
             timer.invalidate()
-            lblStart.setTitle("Start", for: .normal)
+            lblStart.setTitle(NSLocalizedString("BOTONSTART", comment: "BotonStart"), for: .normal)
             lblCount.font = UIFont(name: lblCount.font.fontName, size: 53)
             lblCount.text = timeString()
             
@@ -70,9 +70,9 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         if timeRemaining < 1 {
             
             timer.invalidate()
-            lblCount.text = "Let's take a break!"
+            lblCount.text = NSLocalizedString("NOTITITLE", comment: "TituloNotificacion")
             lblCount.font = UIFont(name: lblCount.font.fontName, size: 40)
-            lblStart.setTitle("Continue", for: .normal)
+            lblStart.setTitle(NSLocalizedString("BOTONCONTINUE", comment: "BotonContinue"), for: .normal)
 
         } else {
             
@@ -121,7 +121,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         self.timer.invalidate()
         let shared = UserDefaults.standard
         shared.set(Date(), forKey: "savedTime")
-        print(Date())
         
     }
     
@@ -130,7 +129,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         if let savedDate = UserDefaults.standard.object(forKey: "savedTime") as? Date {
             
             (diffHours, diffMinutes, diffSeconds) = ViewController.getTimeDiff(startDate: savedDate)
-            print("Horas: \(diffHours), Mins: \(diffMinutes), Segs: \(diffSeconds)")
             self.refresh(hrs: diffHours, mins: diffMinutes, secs: diffSeconds)
             
         }
@@ -160,8 +158,8 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeRemaining), repeats: false)
         // Creamos el contenido de la notificación de aviso
         let contentTrigger = UNMutableNotificationContent()
-        contentTrigger.title = "Let's take a break"
-        contentTrigger.body = "Stop \(task) and rest"
+        contentTrigger.title = NSLocalizedString("NOTITITLE", comment: "TituloNotificacion")
+        contentTrigger.body = NSLocalizedString("NOTIBODY", comment: "CuerpoNotificacion")
         contentTrigger.sound = UNNotificationSound.default()
         // Creamos el objeto request
         let request = UNNotificationRequest(identifier: "outOfTime", content: contentTrigger, trigger: trigger)

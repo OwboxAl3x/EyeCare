@@ -14,7 +14,7 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     var tasks = ["Programming", "Reading", "Studing", "Playing Games", "Test"]
     
-    var selectedTask:String = "Programing"
+    var selectedTask:String = NSLocalizedString("DEFAULTTASK", comment: "TaskDefault")
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
@@ -46,7 +46,7 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             
             destino.task = selectedTask
             
-            if selectedTask == "Programming" {
+            if selectedTask == "Programming" || selectedTask == "Programando" {
                 
                 destino.hours = 1
                 destino.minutes = 0

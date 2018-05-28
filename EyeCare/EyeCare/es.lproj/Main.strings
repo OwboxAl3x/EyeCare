@@ -1,0 +1,24 @@
+
+/* Class = "UIButton"; normalTitle = "Modify Task"; ObjectID = "5xl-fR-yDu"; */
+"5xl-fR-yDu.normalTitle" = "Modificar tarea";
+
+/* Class = "UINavigationItem"; title = "EyeCare"; ObjectID = "Ed0-6A-qeA"; */
+"Ed0-6A-qeA.title" = "EyeCare";
+
+/* Class = "UIButton"; normalTitle = "Start"; ObjectID = "K7t-w5-s0y"; */
+"K7t-w5-s0y.normalTitle" = "Comenzar";
+
+/* Class = "UILabel"; text = "Task"; ObjectID = "QWl-Mf-XBe"; */
+"QWl-Mf-XBe.text" = "Tarea";
+
+/* Class = "UILabel"; text = "00:00:00"; ObjectID = "dYn-7R-XBr"; */
+"dYn-7R-XBr.text" = "00:00:00";
+
+/* Class = "UILabel"; text = "Task"; ObjectID = "k20-9F-nbC"; */
+"k20-9F-nbC.text" = "Tarea";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "u8E-Mp-l9Z"; */
+"u8E-Mp-l9Z.text" = "Etiqueta";
+
+/* Class = "UIViewController"; title = "Edit"; ObjectID = "unn-Ub-6Nv"; */
+"unn-Ub-6Nv.title" = "Editar";

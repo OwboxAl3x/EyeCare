@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  EyeCare
+
+  Created by Alejandro Garcia Vallecillo on 28/5/18.
+  Copyright © 2018 Alejandro Garcia Vallecillo. All rights reserved.
+*/
+
+TIPS = "Consejos";
+
+CONSEJO1 = "1. Intenta no sentarte tan cerca de la pantalla ó, en caso de estar leyendo o estudiando, mantén el texto a una distancia en la que no necesites forzar la vista.";
+
+CONSEJO2 = "2. Es importante tener un ambiente bien iluminado donde estés realizando la tarea.";
+
+CONSEJO3 = "3. Mantener una buena postura también ayuda a prevenir el cansancio visual.";
+
+FAQS1 = "1. ¿Por qué estan mis ojos rojos?\n\nEl cansancio visual producido por el exceso de acomodación en visión cercana puede causar sintimas de irritación de los ojos.";
+
+FAQS2 = "2. Cuando estoy dos horas o más frente al ordenador, mis ojos se ponen rojos.\n\nLa rojez de los ojos puede estar asociada con otros sintomas como la irritación y causada por la frotación de los ojos con las manos.";
+
+NOTITITLE = "Tomate un descanso";
+
+NOTIBODY = "Descansa la vista";
+
+BOTONSTART = "Comenzar";
+
+BOTONSTOP = "Parar";
+
+BOTONCONTINUE = "Continuar";
+
+DEFAULTTASK = "Programando";
