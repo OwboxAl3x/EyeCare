@@ -7,14 +7,62 @@
 //
 
 import UIKit
+import Alamofire
 
 class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBOutlet weak var pickerTasks: UIPickerView!
     
-    var tasks = ["Programming", "Reading", "Studing", "Playing Games", "Test"]
+    var jsonArray: NSArray?
+    
+    var tasks: Array<String> = []
+    var tasksES: Array<String> = []
+    var hours: Array<Int> = []
+    var minutes: Array<Int> = []
+    var seconds: Array<Int> = []
+    var imagenes: Array<String> = []
+    
+    var taskSelected: Int = 0
+    
+    let preferredLanguage = NSLocale.preferredLanguages[0]
     
     var selectedTask:String = NSLocalizedString("DEFAULTTASK", comment: "TaskDefault")
+    
+    // Funciones
+    
+    func downloadDatafromAPI(){
+        
+        Alamofire.request("http://private-ea06c-eyecareapi.apiary-mock.com/taskList") .responseJSON { response in
+            
+            if let JSON = response.result.value{
+                
+                self.jsonArray = JSON as? NSArray
+                
+                for item in self.jsonArray! as! [NSDictionary]{
+                    
+                    let name = item["name"] as? String
+                    let nameES = item["nameES"] as? String
+                    let hours = item["hours"] as? Int
+                    let minutes = item["minutes"] as? Int
+                    let seconds = item["seconds"] as? Int
+                    let img = item["imgTask"] as? String
+                    
+                    self.tasks.append(name!)
+                    self.tasksES.append(nameES!)
+                    self.hours.append(hours!)
+                    self.minutes.append(minutes!)
+                    self.seconds.append(seconds!)
+                    self.imagenes.append(img!)
+                    
+                }
+                
+                self.pickerTasks.reloadAllComponents()
+                
+            }
+            
+        }
+        
+    }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
@@ -24,19 +72,45 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        return tasks.count
+        if preferredLanguage == "es" {
+            
+            return tasksES.count
+            
+        } else {
+            
+            return tasks.count
+            
+        }
         
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return tasks[row]
+        if preferredLanguage == "es" {
+            
+            return tasksES[row]
+            
+        } else {
+        
+            return tasks[row]
+            
+        }
     
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        self.selectedTask = tasks[row]
+        if preferredLanguage == "es" {
+            
+            self.selectedTask = tasksES[row]
+            self.taskSelected = row
+            
+        } else {
+        
+            self.selectedTask = tasks[row]
+            self.taskSelected = row
+            
+        }
         
     }
     
@@ -44,44 +118,11 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         if let destino = segue.destination as? ViewController{
             
-            destino.task = selectedTask
-            
-            if selectedTask == "Programming" || selectedTask == "Programando" {
-                
-                destino.hours = 1
-                destino.minutes = 0
-                destino.seconds = 0
-                destino.imgTask = "imgPrograming.jpeg"
-                
-            } else if selectedTask == "Reading" {
-                
-                destino.hours = 1
-                destino.minutes = 30
-                destino.seconds = 0
-                destino.imgTask = "imgReading.jpeg"
-                
-            }else if selectedTask == "Studing" {
-                
-                destino.hours = 1
-                destino.minutes = 0
-                destino.seconds = 0
-                destino.imgTask = "imgStudying.jpeg"
-                
-            }else if selectedTask == "Playing Games" {
-                
-                destino.hours = 1
-                destino.minutes = 30
-                destino.seconds = 0
-                destino.imgTask = "imgGaming.jpeg"
-                
-            }else if selectedTask == "Test" {
-                
-                destino.hours = 0
-                destino.minutes = 0
-                destino.seconds = 20
-                destino.imgTask = "imgStudying.jpeg"
-                
-            }
+            destino.task = self.selectedTask
+            destino.hours = hours[taskSelected]
+            destino.minutes = minutes[taskSelected]
+            destino.seconds = seconds[taskSelected]
+            destino.imgTask = imagenes[taskSelected]
             
         }
     
@@ -93,6 +134,10 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         pickerTasks.delegate = self
         pickerTasks.dataSource = self
+        
+        // Descargamos los datos de la API
+        
+        downloadDatafromAPI()
         
     }
     
