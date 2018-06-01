@@ -15,7 +15,6 @@ class HelpController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
 
     // MARK: - Table view data source

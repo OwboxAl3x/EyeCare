@@ -9,9 +9,13 @@
 import UIKit
 import Alamofire
 
-class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class EditController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
-    @IBOutlet weak var pickerTasks: UIPickerView!
+    @IBOutlet weak var tabla: UITableView!
+    
+    var searchController : UISearchController!
+    
+    var resultsController = UITableViewController()
     
     var jsonArray: NSArray?
     
@@ -22,13 +26,23 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     var seconds: Array<Int> = []
     var imagenes: Array<String> = []
     
-    var taskSelected: Int = 0
+    var tasksFiltered: Array<String> = []
     
     let preferredLanguage = NSLocale.preferredLanguages[0]
     
     var selectedTask:String = NSLocalizedString("DEFAULTTASK", comment: "TaskDefault")
     
+    let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+    
     // Funciones
+    
+    func creatingSearhBar() {
+        
+        self.searchController = UISearchController(searchResultsController: resultsController)
+        self.tabla.tableHeaderView = self.searchController.searchBar
+        self.searchController.searchResultsUpdater = self
+        
+    }
     
     func downloadDatafromAPI(){
         
@@ -56,7 +70,7 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                     
                 }
                 
-                self.pickerTasks.reloadAllComponents()
+                self.tabla.reloadData()
                 
             }
             
@@ -64,65 +78,155 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
     }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        if preferredLanguage == "es" {
+            
+            self.tasksFiltered = self.tasksES.filter { (task: String) -> Bool in
+                
+                if task.lowercased().contains(self.searchController.searchBar.text!.lowercased()){
+                    
+                    return true
+                    
+                } else{
+                    
+                    return false
+                    
+                }
+                
+            }
+            
+        } else {
+            
+            self.tasksFiltered = self.tasks.filter { (task: String) -> Bool in
+                
+                if task.lowercased().contains(self.searchController.searchBar.text!.lowercased()){
+                    
+                    return true
+                    
+                } else{
+                    
+                    return false
+                    
+                }
+                
+            }
+            
+        }
+        
+        self.resultsController.tableView.reloadData()
+        
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
         
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if preferredLanguage == "es" {
+        if tableView == self.tabla {
             
-            return tasksES.count
+            if preferredLanguage == "es" {
+                
+                return tasksES.count
+                
+            } else {
+                
+                return tasks.count
+                
+            }
             
         } else {
             
-            return tasks.count
+            return tasksFiltered.count
             
         }
         
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if preferredLanguage == "es" {
-            
-            return tasksES[row]
+        let cell = UITableViewCell(style:UITableViewCellStyle.default, reuseIdentifier:"TCell")
+        
+        if tableView == self.tabla {
+        
+            if preferredLanguage == "es" {
+                
+                cell.textLabel?.text = tasksES[indexPath.row]
+                
+            } else {
+                
+                cell.textLabel?.text = tasks[indexPath.row]
+                
+            }
             
         } else {
-        
-            return tasks[row]
+            
+            cell.textLabel?.text = tasksFiltered[indexPath.row]
             
         }
-    
+        
+        myActivityIndicator.stopAnimating()
+        
+        return cell
+        
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if preferredLanguage == "es" {
-            
-            self.selectedTask = tasksES[row]
-            self.taskSelected = row
+        if tableView == self.tabla {
+        
+            if preferredLanguage == "es" {
+                
+                self.selectedTask = tasksES[indexPath.row]
+                
+            } else {
+                
+                self.selectedTask = tasks[indexPath.row]
+                
+            }
             
         } else {
-        
-            self.selectedTask = tasks[row]
-            self.taskSelected = row
+            
+            self.selectedTask = tasksFiltered[indexPath.row]
             
         }
+        
+        self.searchController.isActive = false
+        
+        self.performSegue(withIdentifier: "ModifiedSegue", sender: selectedTask)
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let destino = segue.destination as? ViewController{
+        if segue.identifier == "ModifiedSegue" {
             
-            destino.task = self.selectedTask
-            destino.hours = hours[taskSelected]
-            destino.minutes = minutes[taskSelected]
-            destino.seconds = seconds[taskSelected]
-            destino.imgTask = imagenes[taskSelected]
+            let selected = sender as! String
+            
+            var pos: Int = 0
+            
+            if preferredLanguage == "es" {
+                
+                pos = tasksES.index(of: selected)!
+                
+            } else {
+                
+                pos = tasks.index(of: selected)!
+                
+            }
+            
+            if let destino = segue.destination as? ViewController{
+                
+                destino.task = self.selectedTask
+                destino.hours = hours[pos]
+                destino.minutes = minutes[pos]
+                destino.seconds = seconds[pos]
+                destino.imgTask = imagenes[pos]
+                
+            }
             
         }
     
@@ -130,14 +234,31 @@ class EditController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        pickerTasks.delegate = self
-        pickerTasks.dataSource = self
         
         // Descargamos los datos de la API
         
+        self.tabla.dataSource = self
+        self.tabla.delegate = self
+        
+        self.resultsController.tableView.dataSource = self
+        self.resultsController.tableView.delegate = self
+        
+        creatingSearhBar()
+        
+        // Position Activity Indicator in the center of the main view
+        myActivityIndicator.center = view.center
+        
+        // If needed, you can prevent Acivity Indicator from hiding when stopAnimating() is called
+        myActivityIndicator.hidesWhenStopped = true
+        
+        // Start Activity Indicator
+        myActivityIndicator.startAnimating()
+        
+        view.addSubview(myActivityIndicator)
+        
         downloadDatafromAPI()
+        
+        //sleep(4)
         
     }
     
