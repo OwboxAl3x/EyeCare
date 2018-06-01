@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import AlamofireImage
 
 class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
@@ -18,7 +19,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     // Datos de inicio
     var task:String = NSLocalizedString("DEFAULTTASK", comment: "TaskDefault")
-    var imgTask:String = "imgPrograming.jpeg"
+    var imgTask:String = "http://i68.tinypic.com/351d1xg.jpg"
     var hours:Int = 1
     var minutes:Int = 0
     var seconds:Int = 0
@@ -103,7 +104,8 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         
         UNUserNotificationCenter.current().delegate = self
         
-        self.imgActivity.image = UIImage(named: imgTask)
+        let url = URL(string: imgTask)
+        self.imgActivity.af_setImage(withURL: url!)
         self.imgActivity.layer.cornerRadius = self.imgActivity.bounds.size.width / 2
         self.imgActivity.layer.borderWidth = 4
         self.imgActivity.layer.borderColor = UIColor.white.cgColor
