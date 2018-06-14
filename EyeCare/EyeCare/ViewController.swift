@@ -33,6 +33,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     var timer = Timer()
     var isTimerRun = false
+    var wasTimerRun = false
     
     @IBAction func btnStart(_ sender: UIButton) {
         
@@ -120,18 +121,29 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     @objc func pauseWhenBackground(noti: Notification) {
         
-        self.timer.invalidate()
-        let shared = UserDefaults.standard
-        shared.set(Date(), forKey: "savedTime")
+        if self.timer.isValid {
+            
+            self.wasTimerRun = true
+            self.timer.invalidate()
+            let shared = UserDefaults.standard
+            shared.set(Date(), forKey: "savedTime")
+            
+        }
         
     }
     
     @objc func resumeWhenForeground(noti: Notification) {
-        
-        if let savedDate = UserDefaults.standard.object(forKey: "savedTime") as? Date {
+       
+        if self.wasTimerRun {
             
-            (diffHours, diffMinutes, diffSeconds) = ViewController.getTimeDiff(startDate: savedDate)
-            self.refresh(hrs: diffHours, mins: diffMinutes, secs: diffSeconds)
+            if let savedDate = UserDefaults.standard.object(forKey: "savedTime") as? Date {
+                
+                (diffHours, diffMinutes, diffSeconds) = ViewController.getTimeDiff(startDate: savedDate)
+                self.refresh(hrs: diffHours, mins: diffMinutes, secs: diffSeconds)
+                
+            }
+            
+            self.wasTimerRun = false
             
         }
         
